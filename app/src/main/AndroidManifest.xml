@@ -22,9 +22,10 @@
             android:name="com.google.android.gms.car.application"
             android:resource="@xml/automotive_app_desc" />
 
+        <!-- Nivel 5: es el minimo que introduce Header y MapController, usados en la Fase 2. -->
         <meta-data
             android:name="androidx.car.app.minCarApiLevel"
-            android:value="1" />
+            android:value="5" />
 
         <service
             android:name=".AutoLabCarAppService"
@@ -39,6 +40,18 @@
                 <category android:name="androidx.car.app.category.POI" />
             </intent-filter>
         </service>
+
+        <!--
+            Solo para control desde ADB durante las pruebas de laboratorio (ver RESULTS.md).
+            exported=true es intencional: AutoLab nunca se distribuye.
+        -->
+        <receiver
+            android:name=".surfacelab.SurfaceLabConfigReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="dev.personal.autolab.SET_CONFIG" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
