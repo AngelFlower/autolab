@@ -1,0 +1,45 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Requerido por el host de Android Auto para cualquier app que use la Car App Library. -->
+    <uses-permission android:name="androidx.car.app.ACCESS_SURFACE" />
+    <!-- Habilita MapWithContentTemplate, necesaria para la categoria POI en la Fase 2 (Surface Lab). -->
+    <uses-permission android:name="androidx.car.app.MAP_TEMPLATES" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+
+        <!--
+            com.google.android.gms.car.application es la clave correcta para Android Auto
+            proyectado (telefono + DHU/auto). com.android.automotive es solo para builds
+            nativos de Android Automotive OS, que no es nuestro caso. Verificado contra el
+            manifest real de android/car-samples (showcase/mobile).
+        -->
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+
+        <meta-data
+            android:name="androidx.car.app.minCarApiLevel"
+            android:value="1" />
+
+        <service
+            android:name=".AutoLabCarAppService"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="androidx.car.app.CarAppService" />
+                <!--
+                    Categoria POI: permite MapWithContentTemplate y por lo tanto acceso a
+                    Surface (ver Fase 2) sin los requisitos de una app de navegacion real.
+                -->
+                <category android:name="androidx.car.app.category.POI" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>

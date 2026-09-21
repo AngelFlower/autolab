@@ -1,0 +1,10 @@
+[versions]
+agp = "9.4.0"
+carApp = "1.7.0"
+
+[libraries]
+car-app = { module = "androidx.car.app:app", version.ref = "carApp" }
+car-app-projected = { module = "androidx.car.app:app-projected", version.ref = "carApp" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
