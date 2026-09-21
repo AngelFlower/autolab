@@ -25,6 +25,7 @@ import androidx.lifecycle.Observer
 import dev.personal.autolab.mirror.MirrorState
 import dev.personal.autolab.mirror.MirrorSurfaceView
 import dev.personal.autolab.mirror.ScreenMirrorService
+import dev.personal.autolab.thermal.ThermalMonitor
 
 private const val TAG = "AutoLab"
 private const val REQUEST_MEDIA_PROJECTION = 1001
@@ -44,6 +45,7 @@ class GameActivity : Activity() {
 
     private lateinit var gameView: GameSurfaceView
     private lateinit var mirrorView: MirrorSurfaceView
+    private lateinit var thermalMonitor: ThermalMonitor
 
     private val carConnectionObserver = Observer<Int> { tipo ->
         val nombre = when (tipo) {
@@ -114,6 +116,9 @@ class GameActivity : Activity() {
         mostrarInfoDisplay(info)
         carConnection.type.observeForever(carConnectionObserver)
         MirrorState.addStopListener(mirrorStoppedListener)
+
+        thermalMonitor = ThermalMonitor(this, "parked_game")
+        thermalMonitor.iniciar()
 
         registrarReceiver(startMirrorReceiver, "dev.personal.autolab.START_MIRROR")
         registrarReceiver(secureTestReceiver, "dev.personal.autolab.SHOW_SECURE_TEST")
@@ -207,6 +212,7 @@ class GameActivity : Activity() {
     override fun onDestroy() {
         carConnection.type.removeObserver(carConnectionObserver)
         MirrorState.removeStopListener(mirrorStoppedListener)
+        thermalMonitor.detener()
         unregisterReceiver(startMirrorReceiver)
         unregisterReceiver(secureTestReceiver)
         super.onDestroy()
