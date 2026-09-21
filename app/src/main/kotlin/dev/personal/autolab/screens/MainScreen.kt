@@ -8,9 +8,9 @@ import androidx.car.app.model.ListTemplate
 import androidx.car.app.model.Row
 import androidx.car.app.model.Template
 import dev.personal.autolab.surfacelab.SurfaceLabScreen
+import dev.personal.autolab.virtuallab.VirtualDisplayLabScreen
 
 private val LABORATORIOS_PENDIENTES = listOf(
-    "Fase 3: Views en VirtualDisplay",
     "Fase 4: Parked app (juego)",
     "Fase 5: Espejo con MediaProjection",
     "Fase 6: Estres termico",
@@ -27,6 +27,14 @@ class MainScreen(carContext: CarContext) : Screen(carContext) {
                 .setTitle("Fase 2: Surface Lab (Canvas)")
                 .setBrowsable(true)
                 .setOnClickListener { screenManager.push(SurfaceLabScreen(carContext)) }
+                .build()
+        )
+
+        itemListBuilder.addItem(
+            Row.Builder()
+                .setTitle("Fase 3: Views en VirtualDisplay")
+                .setBrowsable(true)
+                .setOnClickListener { screenManager.push(VirtualDisplayLabScreen(carContext)) }
                 .build()
         )
 

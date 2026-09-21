@@ -53,6 +53,14 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name=".virtuallab.VirtualDisplayLabConfigReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="dev.personal.autolab.SET_VIEW_CASE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
