@@ -67,10 +67,12 @@
         </receiver>
 
         <!--
-            Fase 4: Activity parked (juego). LIMITACION CONFIRMADA (ver RESULTS.md): mientras
-            este AutoLabCarAppService este presente en el manifest, el host de Android Auto
-            no la abre desde su launcher (intenta bindear siempre al CarAppService). Solo se
-            verifico funcionando end-to-end en una build de prueba sin el service.
+            Fase 4: Activity parked (visor de la proyeccion en el auto). LIMITACION
+            CONFIRMADA (ver RESULTS.md): mientras este AutoLabCarAppService presente en
+            el manifest, el host de Android Auto no la abre desde su launcher (intenta
+            bindear siempre al CarAppService). Solo CAR_LAUNCHER (sin LAUNCHER): no debe
+            tener icono propio en el telefono, para no duplicar el de
+            ProjectionSetupActivity: se abre unicamente desde el launcher del auto.
         -->
         <activity
             android:name=".parkedgame.GameActivity"
@@ -79,7 +81,6 @@
             android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.CAR_LAUNCHER" />
             </intent-filter>
         </activity>
