@@ -32,19 +32,19 @@
             android:name="androidx.car.app.minCarApiLevel"
             android:value="5" />
 
+        <!-- FASE 7: CarAppService quitado a proposito durante toda la Fase 7 (conflicto
+             confirmado con GameActivity/CAR_LAUNCHER, ver Fase 4). Se restaura al cerrar
+             la Fase 7.
         <service
             android:name=".AutoLabCarAppService"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="androidx.car.app.CarAppService" />
-                <!--
-                    Categoria POI: permite MapWithContentTemplate y por lo tanto acceso a
-                    Surface (ver Fase 2) sin los requisitos de una app de navegacion real.
-                -->
                 <category android:name="androidx.car.app.category.POI" />
             </intent-filter>
         </service>
+        -->
 
         <!--
             Solo para control desde ADB durante las pruebas de laboratorio (ver RESULTS.md).
@@ -89,14 +89,22 @@
             android:exported="false"
             android:foregroundServiceType="mediaProjection" />
 
-        <receiver
-            android:name=".mirror.MirrorControlReceiver"
-            android:exported="true">
+        <!--
+            Fase 7A: Activity de configuracion en el telefono. taskAffinity="" +
+            excludeFromRecents evitan que comparta tarea con GameActivity (ver
+            RESULTS.md Fase 7B sobre por que eso importa).
+        -->
+        <activity
+            android:name=".mirror.ProjectionSetupActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
             <intent-filter>
-                <action android:name="dev.personal.autolab.SET_MIRROR_MODE" />
-                <action android:name="dev.personal.autolab.STOP_MIRROR" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </receiver>
+        </activity>
 
     </application>
 
