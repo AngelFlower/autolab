@@ -4,6 +4,10 @@
     <uses-permission android:name="androidx.car.app.ACCESS_SURFACE" />
     <!-- Habilita MapWithContentTemplate, necesaria para la categoria POI en la Fase 2 (Surface Lab). -->
     <uses-permission android:name="androidx.car.app.MAP_TEMPLATES" />
+    <!-- Fase 5: espejo de pantalla con MediaProjection. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="false"
@@ -79,6 +83,20 @@
                 <category android:name="android.intent.category.CAR_LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".mirror.ScreenMirrorService"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
+
+        <receiver
+            android:name=".mirror.MirrorControlReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="dev.personal.autolab.SET_MIRROR_MODE" />
+                <action android:name="dev.personal.autolab.STOP_MIRROR" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
