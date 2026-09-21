@@ -165,6 +165,11 @@ class ScreenMirrorService : Service() {
 
     fun sesionActiva(): Boolean = mediaProjection != null
 
+    /** Detiene la proyeccion por completo (hay que volver a pedir consentimiento para otra). */
+    fun detenerSesion() {
+        detener()
+    }
+
     private fun detener() {
         virtualDisplay?.release()
         virtualDisplay = null
