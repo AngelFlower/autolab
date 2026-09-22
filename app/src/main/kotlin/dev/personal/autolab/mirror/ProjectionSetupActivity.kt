@@ -71,21 +71,45 @@ class ProjectionSetupActivity : Activity() {
         }
 
         val campoUrl = EditText(this).apply {
-            hint = "https://m.youtube.com/..."
+            hint = "URL, o un tema para buscar en YouTube"
             setTextColor(Color.WHITE)
             setHintTextColor(Color.GRAY)
         }
 
         val botonUrl = Button(this).apply {
-            text = "Cargar página en el auto"
+            text = "Cargar / buscar en el auto"
             setOnClickListener {
                 val texto = campoUrl.text.toString().trim()
-                if (texto.isNotEmpty()) {
-                    Log.i(TAG, "Enviando URL al auto: $texto")
-                    ContentState.mostrarWeb(texto)
-                    estado.text = "Mostrando página en el auto: $texto"
+                if (texto.isEmpty()) return@setOnClickListener
+                val url = if (texto.startsWith("http://") || texto.startsWith("https://")) {
+                    texto
+                } else {
+                    "https://m.youtube.com/results?search_query=" + Uri.encode(texto)
                 }
+                Log.i(TAG, "Enviando al auto: $url")
+                ContentState.mostrarWeb(url)
+                estado.text = "Mostrando en el auto: $url"
             }
+        }
+
+        val filaAccesos = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+        }
+        val accesos = listOf(
+            "YouTube: Inicio" to "https://m.youtube.com/",
+            "YouTube: Tendencias" to "https://m.youtube.com/feed/trending",
+            "YouTube: Suscripciones" to "https://m.youtube.com/feed/subscriptions",
+        )
+        accesos.forEach { (etiqueta, url) ->
+            filaAccesos.addView(Button(this).apply {
+                text = etiqueta
+                textSize = 11f
+                setOnClickListener {
+                    Log.i(TAG, "Acceso directo: $url")
+                    ContentState.mostrarWeb(url)
+                    estado.text = "Mostrando en el auto: $etiqueta"
+                }
+            })
         }
 
         val botonVideo = Button(this).apply {
@@ -107,6 +131,7 @@ class ProjectionSetupActivity : Activity() {
         root.addView(separador1)
         root.addView(campoUrl)
         root.addView(botonUrl)
+        root.addView(filaAccesos)
         root.addView(botonVideo)
         root.addView(botonVolverEspejo)
         setContentView(root)
