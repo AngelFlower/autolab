@@ -1,0 +1,21 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+
+        <!--
+            Fase 7H: app de media minima. Es la integracion de Android Auto que soporta
+            cualquier head unit, asi que sirve de control: si esta no aparece en el auto,
+            el problema es la instalacion/ajustes, no el tipo de app.
+        -->
+        <service
+            android:name=".media.AutoLabMediaService"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>

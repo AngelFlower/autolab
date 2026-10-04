@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nombre distinto por flavor para distinguirlas en el launcher del auto. -->
+    <string name="app_name">AutoLab P</string>
+</resources>

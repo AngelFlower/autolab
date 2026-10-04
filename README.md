@@ -19,7 +19,8 @@ Ver `RESULTS.md` para los hallazgos de cada fase.
 
 ```bash
 ./gradlew assembleDebug
-./gradlew installDebug   # con el Pixel 6 conectado por USB y autorizado
+./gradlew installParkedDebug   # solo la variante parked (DHU), con el Pixel 6 por USB
+scripts/instalar_auto.sh       # las 3 variantes, marcadas como instaladas desde Play (auto real)
 ```
 
 ## Conectar el DHU (emulador de unidad principal)

@@ -1,0 +1,25 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Los juegos son la unica categoria "parked" soportada por Android Auto. -->
+    <application android:appCategory="game">
+
+        <!--
+            Fase 4: Activity parked (visor de la proyeccion en el auto). Solo CAR_LAUNCHER
+            (sin LAUNCHER): se abre unicamente desde el launcher del auto; el icono del
+            telefono es el de ProjectionSetupActivity. Sin CarAppService en este flavor:
+            el host lo priorizaria siempre sobre esta Activity (ver RESULTS.md, Fase 4).
+        -->
+        <activity
+            android:name=".parkedgame.GameActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.CAR_LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

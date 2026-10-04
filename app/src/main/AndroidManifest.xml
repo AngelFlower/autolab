@@ -16,7 +16,6 @@
 
     <application
         android:allowBackup="false"
-        android:appCategory="game"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -37,19 +36,8 @@
             android:name="androidx.car.app.minCarApiLevel"
             android:value="5" />
 
-        <!-- FASE 7: CarAppService quitado a proposito durante toda la Fase 7 (conflicto
-             confirmado con GameActivity/CAR_LAUNCHER, ver Fase 4). Se restaura al cerrar
-             la Fase 7.
-        <service
-            android:name=".AutoLabCarAppService"
-            android:exported="true"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="androidx.car.app.CarAppService" />
-                <category android:name="androidx.car.app.category.POI" />
-            </intent-filter>
-        </service>
-        -->
+        <!-- Los puntos de entrada al auto (GameActivity, CarAppService, MediaBrowserService)
+             viven en el manifest de cada flavor: src/parked, src/templates, src/media. -->
 
         <!--
             Solo para control desde ADB durante las pruebas de laboratorio (ver RESULTS.md).
@@ -70,25 +58,6 @@
                 <action android:name="dev.personal.autolab.SET_VIEW_CASE" />
             </intent-filter>
         </receiver>
-
-        <!--
-            Fase 4: Activity parked (visor de la proyeccion en el auto). LIMITACION
-            CONFIRMADA (ver RESULTS.md): mientras este AutoLabCarAppService presente en
-            el manifest, el host de Android Auto no la abre desde su launcher (intenta
-            bindear siempre al CarAppService). Solo CAR_LAUNCHER (sin LAUNCHER): no debe
-            tener icono propio en el telefono, para no duplicar el de
-            ProjectionSetupActivity: se abre unicamente desde el launcher del auto.
-        -->
-        <activity
-            android:name=".parkedgame.GameActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.CAR_LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <service
             android:name=".mirror.ScreenMirrorService"
