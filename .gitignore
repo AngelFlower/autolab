@@ -7,3 +7,13 @@ build/
 captures/
 .externalNativeBuild/
 .cxx/
+
+# Notas internas de laboratorio (bitacora, planes, resultados): solo locales.
+RESULTS.md
+PLAN_*.md
+NOTAS*.md
+notas/
+*.local.md
+# Capturas de logcat y similares.
+*.log
+logcat*.txt

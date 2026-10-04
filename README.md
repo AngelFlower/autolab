@@ -3,7 +3,6 @@
 Proyecto de laboratorio personal para medir los límites de Android Auto en un
 Pixel 6. No se distribuye, solo se instala por ADB para pruebas propias.
 
-Ver `RESULTS.md` para los hallazgos de cada fase.
 
 ## Requisitos
 
